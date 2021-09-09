@@ -1,12 +1,8 @@
 {
   "hosting": {
-    "site": "auradmin",
+    "site": "gdscsrec",
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
