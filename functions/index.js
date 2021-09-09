@@ -3,4 +3,4 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 // modules
-exports.team = require('./modules/team')
+exports.team = require('./modules/team');
