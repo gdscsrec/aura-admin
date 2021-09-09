@@ -7,29 +7,27 @@
       :timeout="snakeBarTimeOut"
     /> -->
     <v-row class="my-0 py-0" style="">
-        <v-col cols="12" class="pa-0 my-0">
-            <Connect />
-        </v-col>
+      <v-col cols="12" class="pa-0 my-0">
+        <Connect />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "connect",
-  components:{
-      Connect:()=>import('@/components/Connect/Connect')
+  name: 'connect',
+  components: {
+    Connect: () => import('@/components/Connect/Connect'),
   },
   data: () => ({
-    snakeBarMessage: "",
+    snakeBarMessage: '',
     isSnakeBarVisible: false,
-    snakeBarColor: "green",
+    snakeBarColor: 'green',
     snakeBarTimeOut: 5000,
-    showLoader: true
-  })
+    showLoader: true,
+  }),
 };
 </script>
 
-<style>
-</style>
-
+<style></style>

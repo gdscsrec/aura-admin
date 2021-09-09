@@ -7,17 +7,18 @@
       <v-card v-if="emailDialog" class>
         <v-card-title
           class="google-font"
-          style="border-bottom:1px solid #e0e0e0;"
+          style="border-bottom: 1px solid #e0e0e0"
           primary-title
           dark
-        >Add User</v-card-title>
+          >Add User</v-card-title
+        >
         <v-card-text class="px-5">
           <v-container fluid>
-              <v-row class="pa-0">
-                <v-col cols="12" class="pa-1 ma-0">
-                {{data}}
-                </v-col>
-              </v-row>
+            <v-row class="pa-0">
+              <v-col cols="12" class="pa-1 ma-0">
+                {{ data }}
+              </v-col>
+            </v-row>
           </v-container>
         </v-card-text>
 
@@ -33,18 +34,15 @@
 </template>
 
 <script>
-import TeamServices from '@/services/TeamServices'
+import TeamServices from '@/services/TeamServices';
 export default {
   components: {},
-  props:['data'],
+  props: ['data'],
   data: () => ({
     emailDialog: false,
     loading: false,
   }),
-  mounted() {
-    
-  },
-  methods: {
-  }
+  mounted() {},
+  methods: {},
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
   <div class="text-center">
     <v-dialog v-model="dialog" persistent scrollable width="1100">
-      <v-card v-if="dialog" class style="border-radius:7px">
+      <v-card v-if="dialog" class style="border-radius: 7px">
         <v-card-title
           class="google-font"
           primary-title
-          style="border-bottom:1px solid #e0e0e0;"
+          style="border-bottom: 1px solid #e0e0e0"
           dark
         >
           Add First Time
@@ -18,13 +18,18 @@
                 <v-form ref="form" v-model="valid" lazy-validation>
                   <v-row class="pa-3 py-0">
                     <v-col md="12" cols="12" class="pa-1 ma-0">
-                      <p class="google-font mb-0" style="color:red">*indicates required field</p>
-                      <p
-                        style="color:red"
-                      >ID should be unique, Once you assigned an ID to event, it can't be changed</p>
+                      <p class="google-font mb-0" style="color: red">
+                        *indicates required field
+                      </p>
+                      <p style="color: red">
+                        ID should be unique, Once you assigned an ID to event,
+                        it can't be changed
+                      </p>
                     </v-col>
                     <v-col md="12" cols="12" class="pa-1 ma-0">
-                      <p style="font-size:120%" class="my-0 mb-2">Team Member Status</p>
+                      <p style="font-size: 120%" class="my-0 mb-2">
+                        Team Member Status
+                      </p>
                     </v-col>
 
                     <v-col md="3" xs="3" cols="12" class="pa-1 ma-0">
@@ -50,7 +55,9 @@
                   </v-row>
                   <v-row class="pa-3 py-0">
                     <v-col md="12" cols="12" class="pa-1 ma-0">
-                      <p style="font-size:120%" class="my-0">Team Member Info</p>
+                      <p style="font-size: 120%" class="my-0">
+                        Team Member Info
+                      </p>
                     </v-col>
 
                     <v-col md="4" xs="4" cols="12" class="pa-1 ma-0">
@@ -91,7 +98,8 @@
             :disabled="!valid"
             :loading="loading"
             @click="SaveEvent"
-          >Add</v-btn>
+            >Add</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -99,29 +107,29 @@
 </template>
 
 <script>
-import firebase from "@/config/firebase";
-import TeamServices from "@/services/TeamServices";
+import firebase from '@/config/firebase';
+import TeamServices from '@/services/TeamServices';
 export default {
-  props: ["dialog"],
+  props: ['dialog'],
   data() {
     return {
       valid: true,
       idRules: [
-        v => !!v || "Field Value is required",
-        v => (v && v.length <= 30) || "Name must be less than 30 characters"
+        (v) => !!v || 'Field Value is required',
+        (v) => (v && v.length <= 30) || 'Name must be less than 30 characters',
       ],
       nameRules: [
-        v => !!v || "Name is required",
-        v => (v && v.length <= 50) || "Name must be less than 50 characters"
+        (v) => !!v || 'Name is required',
+        (v) => (v && v.length <= 50) || 'Name must be less than 50 characters',
       ],
-      teamRole: ["Organizing Team", "Core Team", "Volunteer"],
+      teamRole: ['Organizing Team', 'Core Team', 'Volunteer'],
       loading: false,
       active: Boolean,
       visible: Boolean,
-      id: "",
-      name: "",
-      designation: "",
-      role: null
+      id: '',
+      name: '',
+      designation: '',
+      role: null,
     };
   },
   methods: {
@@ -133,41 +141,41 @@ export default {
           visible: false,
           name: this.name,
           designation: this.designation,
-          mbnumber: "",
+          mbnumber: '',
           email: firebase.auth.currentUser.email,
-          image: "",
-          password: "",
-          bio: "",
+          image: '',
+          password: '',
+          bio: '',
           id: this.id,
           role: this.role,
           socialLinks: {
-            facebook: "",
-            github: "",
-            linkedin: "",
-            medium: "",
-            twitter: "",
-            web: ""
-          }
+            facebook: '',
+            github: '',
+            linkedin: '',
+            medium: '',
+            twitter: '',
+            web: '',
+          },
         };
         TeamServices.addFirstTime(Data)
-          .then(res => {
+          .then((res) => {
             if (res.success == true) {
               this.loading = false;
               alert(
-                "Added Success\n we are signin you out, please login in again."
+                'Added Success\n we are signin you out, please login in again.'
               );
               firebase.auth.signOut().then(() => {
-                this.$router.replace("/login");
+                this.$router.replace('/login');
               });
             }
           })
-          .catch(e => {
+          .catch((e) => {
             this.loading = false;
             // console.log(e);
-            alert("Something went wrong\n" + e);
+            alert('Something went wrong\n' + e);
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>

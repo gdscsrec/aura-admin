@@ -6,7 +6,7 @@
           <v-icon dark>mdi-plus</v-icon>
         </v-btn>
       </template>
-      <v-card v-if="dialog" class >
+      <v-card v-if="dialog" class>
         <v-card-title class="google-font" primary-title dark>
           Add New Guideline
         </v-card-title>
@@ -22,7 +22,11 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" class="pa-1 ma-0">
-                <v-textarea outlined v-model="des" label="Description"></v-textarea>
+                <v-textarea
+                  outlined
+                  v-model="des"
+                  label="Description"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
@@ -39,7 +43,8 @@
             depressed
             @click="addGuid"
             :loading="loading"
-          >Add</v-btn>
+            >Add</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -50,26 +55,25 @@
 import firebase from '@/config/firebase';
 
 export default {
-    props:['data'],
-    data:()=>({
-        dialog:false,
-        loading:false,
-        name:"",
-        des:""
-    }),
-    methods:{
-      addGuid(){
-        this.data.push({
-          name:this.name,
-          des:this.des
-        });
-        this.name="";
-        this.des="";
-        this.dialog = false;
-      }
-    }
+  props: ['data'],
+  data: () => ({
+    dialog: false,
+    loading: false,
+    name: '',
+    des: '',
+  }),
+  methods: {
+    addGuid() {
+      this.data.push({
+        name: this.name,
+        des: this.des,
+      });
+      this.name = '';
+      this.des = '';
+      this.dialog = false;
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

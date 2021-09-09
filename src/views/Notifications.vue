@@ -1,5 +1,5 @@
 <template>
-  <v-container style="max-width:1600px">
+  <v-container style="max-width: 1600px">
     <!-- Global Snakebar -->
     <Snakebar
       :message="snakeBarMessage"
@@ -10,8 +10,13 @@
     <v-row justify="center" align="center">
       <v-col cols="12" md="12">
         <!-- Toolbar for PushNotifications -->
-        <v-toolbar class="elevation-0" style="border:1px solid #e0e0e0;border-radius:5px;">
-          <v-toolbar-title class="google-font">Push Notifications: {{ pushData.length }}</v-toolbar-title>
+        <v-toolbar
+          class="elevation-0"
+          style="border: 1px solid #e0e0e0; border-radius: 5px"
+        >
+          <v-toolbar-title class="google-font"
+            >Push Notifications: {{ pushData.length }}</v-toolbar-title
+          >
           <div class="flex-grow-1"></div>
           <!-- Search Field for notifications -->
           <v-text-field
@@ -33,77 +38,93 @@
     </v-row>
     <!-- Start of main data -->
     <v-row justify="center" align="center">
-        <v-col cols="12" md="12">
-          <!-- Data table for showing pushnotifications -->
-          <v-data-table
-            :mobile-breakpoint="0"
-            style="border:1px solid #e0e0e0;border-radius:5px;"
-            :headers="headers"
-            :items="pushData"
-            :items-per-page="10"
-            :search="search"
-            class="elevation-0 google-font"
-            :loading="isLoading"
-            loading-text="Loading... Please wait"
-          >
-            <template v-slot:item.body="{ item }">
-              {{item.body | summary(35) }}
-            </template> 
-            <template v-slot:item.title="{ item }">
-              {{item.title | summary(25) }}
-            </template> 
-            <template v-slot:item.action="{ item }">
-              <!-- view Selected Notification -->
-              <ViewNotification :dialogData="item" />
-              <EditNotification @addedSuccess="addedd" @errorRecived="errors" :editDialogData="item" />
-              <DeleteNotification @addedSuccess="addedd" @errorRecived="errors" :data="item" />
-              <SendNotification @addedSuccess="addedd" @errorRecived="errors" :dataA="item" />
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
+      <v-col cols="12" md="12">
+        <!-- Data table for showing pushnotifications -->
+        <v-data-table
+          :mobile-breakpoint="0"
+          style="border: 1px solid #e0e0e0; border-radius: 5px"
+          :headers="headers"
+          :items="pushData"
+          :items-per-page="10"
+          :search="search"
+          class="elevation-0 google-font"
+          :loading="isLoading"
+          loading-text="Loading... Please wait"
+        >
+          <template v-slot:item.body="{ item }">
+            {{ item.body | summary(35) }}
+          </template>
+          <template v-slot:item.title="{ item }">
+            {{ item.title | summary(25) }}
+          </template>
+          <template v-slot:item.action="{ item }">
+            <!-- view Selected Notification -->
+            <ViewNotification :dialogData="item" />
+            <EditNotification
+              @addedSuccess="addedd"
+              @errorRecived="errors"
+              :editDialogData="item"
+            />
+            <DeleteNotification
+              @addedSuccess="addedd"
+              @errorRecived="errors"
+              :data="item"
+            />
+            <SendNotification
+              @addedSuccess="addedd"
+              @errorRecived="errors"
+              :dataA="item"
+            />
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import firebase from "@/config/firebase";
-import PushNotificationServicers from '@/services/NotificationServices'
-import { mapState } from 'vuex'
+import firebase from '@/config/firebase';
+import PushNotificationServicers from '@/services/NotificationServices';
+import { mapState } from 'vuex';
 export default {
-  name: "Notifications",
+  name: 'Notifications',
   components: {
-    Snakebar:()=>import('@/components/Common/Snakebar'),
-    AddNotification:()=>import('@/components/Notification/AddNotification'),
-    ViewNotification:()=>import('@/components/Notification/ViewNotification'),
-    SendNotification:()=>import('@/components/Notification/SendNotification'),
-    EditNotification:()=>import('@/components/Notification/EditNotification'),
-    DeleteNotification:()=>import('@/components/Notification/DeleteNotification')
+    Snakebar: () => import('@/components/Common/Snakebar'),
+    AddNotification: () => import('@/components/Notification/AddNotification'),
+    ViewNotification: () =>
+      import('@/components/Notification/ViewNotification'),
+    SendNotification: () =>
+      import('@/components/Notification/SendNotification'),
+    EditNotification: () =>
+      import('@/components/Notification/EditNotification'),
+    DeleteNotification: () =>
+      import('@/components/Notification/DeleteNotification'),
   },
   data: () => ({
     isSearch: false,
-    search: "",
-    snakeBarMessage: "",
+    search: '',
+    snakeBarMessage: '',
     isSnakeBarVisible: false,
-    snakeBarColor: "green",
+    snakeBarColor: 'green',
     snakeBarTimeOut: 5000,
     isLoading: false,
     pushData: [],
     headers: [
-      { text: "Title", align: "left", value: "title" },
-      { text: "Body", value: "body" },
-      { text: "Learn More", value: "learnMore" },
-      { text: "Sent times", value: "noTimeSend" },
-      { text: "Actions", value: "action", sortable: false }
-    ]
+      { text: 'Title', align: 'left', value: 'title' },
+      { text: 'Body', value: 'body' },
+      { text: 'Learn More', value: 'learnMore' },
+      { text: 'Sent times', value: 'noTimeSend' },
+      { text: 'Actions', value: 'action', sortable: false },
+    ],
   }),
-  computed:{...mapState(['role'])},
-  beforeMount(){
-    if(!this.$route.meta.access[this.role]){
-      alert("Not Auth")
+  computed: { ...mapState(['role']) },
+  beforeMount() {
+    if (!this.$route.meta.access[this.role]) {
+      alert('Not Auth');
       this.$router.replace('/home');
     }
   },
-  mounted(){
+  mounted() {
     this.loadData();
   },
   methods: {
@@ -114,37 +135,38 @@ export default {
         this.loadData();
       }
     },
-    errors(e){
+    errors(e) {
       this.snakeBarMessage = e;
       this.isSnakeBarVisible = true;
     },
     loadData() {
       this.pushData = [];
       this.isLoading = true;
-      PushNotificationServicers.getAllPushNotifications().then(res=>{
-        if(res.success==true){
-          this.pushData = res.data
-          this.isLoading = false
-        }
-      }).catch(e=>{
-        this.isLoading = false;
-        this.snakeBarMessage = e;
-        this.isSnakeBarVisible = true;
-        console.log(e)
-      })
-    }
+      PushNotificationServicers.getAllPushNotifications()
+        .then((res) => {
+          if (res.success == true) {
+            this.pushData = res.data;
+            this.isLoading = false;
+          }
+        })
+        .catch((e) => {
+          this.isLoading = false;
+          this.snakeBarMessage = e;
+          this.isSnakeBarVisible = true;
+          console.log(e);
+        });
+    },
   },
-  filters:{
-    summary: (val,num)=>{
-      if(val.length > num){
-        return val.substring(0,num)+".."
-      }else{
-        return val
+  filters: {
+    summary: (val, num) => {
+      if (val.length > num) {
+        return val.substring(0, num) + '..';
+      } else {
+        return val;
       }
     },
-  }
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

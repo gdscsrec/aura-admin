@@ -1,5 +1,5 @@
 <template>
-  <v-container class="" style="max-width:1600px">
+  <v-container class="" style="max-width: 1600px">
     <Snakebar
       :message="snakeBarMessage"
       :isShow.sync="isSnakeBarVisible"
@@ -8,8 +8,13 @@
     />
     <v-row class="">
       <v-col>
-        <v-toolbar class="elevation-0" style="border:1px solid #e0e0e0;border-radius:5px;">
-          <v-toolbar-title class="google-font mr-3">Team: {{ teamData.length }}</v-toolbar-title>
+        <v-toolbar
+          class="elevation-0"
+          style="border: 1px solid #e0e0e0; border-radius: 5px"
+        >
+          <v-toolbar-title class="google-font mr-3"
+            >Team: {{ teamData.length }}</v-toolbar-title
+          >
           <v-spacer></v-spacer>
 
           <!-- Desktop -->
@@ -42,7 +47,15 @@
             ></v-text-field>
           </v-slide-x-reverse-transition>
 
-          <v-btn fab x-small color="indigo" @click="openCloseSearch" class="mr-2 hidden-md-and-up" outlined dark>
+          <v-btn
+            fab
+            x-small
+            color="indigo"
+            @click="openCloseSearch"
+            class="mr-2 hidden-md-and-up"
+            outlined
+            dark
+          >
             <v-icon dark v-if="!isSearch">mdi-account-search</v-icon>
             <v-icon dark v-else>mdi-close</v-icon>
           </v-btn>
@@ -50,7 +63,15 @@
           &nbsp;
 
           <!-- Toggle Menu for View -->
-          <v-btn-toggle v-if="teamData.length" borderless background-color="white" color="indigo" dense v-model="dataView" class="hidden-sm-and-down">
+          <v-btn-toggle
+            v-if="teamData.length"
+            borderless
+            background-color="white"
+            color="indigo"
+            dense
+            v-model="dataView"
+            class="hidden-sm-and-down"
+          >
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on">
@@ -70,7 +91,12 @@
             </v-tooltip>
           </v-btn-toggle>
           <!-- Toggle Menu for View -->
-          <AddTeam v-if="role=='Super Admin'" class="ml-2" @showSuccess="showSnakeBar" @message="showMessageSnakeBar"  />
+          <AddTeam
+            v-if="role == 'Super Admin'"
+            class="ml-2"
+            @showSuccess="showSnakeBar"
+            @message="showMessageSnakeBar"
+          />
         </v-toolbar>
       </v-col>
     </v-row>
@@ -122,7 +148,7 @@
               </v-sheet>
             </v-col>
           </v-row>
-          <div v-else >
+          <div v-else>
             <!-- Check the Condition Where we have a Data or not -->
             <div v-if="teamData.length">
               <!-- Grid View -->
@@ -143,41 +169,60 @@
                       md="2"
                       lg="2"
                       sm="3"
-                      v-for="(item) in props.items"
+                      v-for="item in props.items"
                       :key="item.id"
                       class="pa-1"
                     >
                       <v-card
-                        style="cursor: pointer;user-select: none;border:1px solid #e0e0e0;border-radius:5px;"
+                        style="
+                          cursor: pointer;
+                          user-select: none;
+                          border: 1px solid #e0e0e0;
+                          border-radius: 5px;
+                        "
                         height="100%"
                         v-ripple
                         @click="gotoTeamDetails(item.id)"
                         class="text-center elevation-0"
                       >
-                        <v-card-text style="height:100%">
+                        <v-card-text style="height: 100%">
                           <v-badge
-                            :color="item.active?'green':'red'"
+                            :color="item.active ? 'green' : 'red'"
                             dot
                             overlap
                             offset-y="16"
                             offset-x="25"
                           >
-                          <v-avatar size="100">
-                            <img
-                              :src="(item.image.length>0)?item.image:require('@/assets/img/default_avatar.jpg')"
-                              alt
-                            />
-                          </v-avatar>
+                            <v-avatar size="100">
+                              <img
+                                :src="
+                                  item.image.length > 0
+                                    ? item.image
+                                    : require('@/assets/img/default_avatar.jpg')
+                                "
+                                alt
+                              />
+                            </v-avatar>
                           </v-badge>
                           <p
                             class="mt-3 mb-0 google-font black--text"
-                            style="font-size:120%"
-                          >{{item.name}}</p>
+                            style="font-size: 120%"
+                          >
+                            {{ item.name }}
+                          </p>
                           <p
                             class="mt-0 mb-0 google-font caption"
-                            style="font-size:60%"
-                          >{{item.designation}}</p>
-                          <v-chip class="ma-1" dark :color="item.visible?'green':'red'" x-small>{{item.role}}</v-chip>
+                            style="font-size: 60%"
+                          >
+                            {{ item.designation }}
+                          </p>
+                          <v-chip
+                            class="ma-1"
+                            dark
+                            :color="item.visible ? 'green' : 'red'"
+                            x-small
+                            >{{ item.role }}</v-chip
+                          >
                         </v-card-text>
                       </v-card>
                     </v-col>
@@ -191,7 +236,11 @@
                   <v-col class="pa-1">
                     <v-data-table
                       :mobile-breakpoint="0"
-                      style="border:1px solid #e0e0e0;border-radius:5px;background:white;"
+                      style="
+                        border: 1px solid #e0e0e0;
+                        border-radius: 5px;
+                        background: white;
+                      "
                       :search="search"
                       :loading="isLoading"
                       :headers="headers"
@@ -199,43 +248,68 @@
                       sort-desc
                       :items-per-page="10"
                       class="elevation-0 ma-0 pa-0"
-                    > 
+                    >
                       <template v-slot:item.name="{ item }">
                         <v-list-item>
                           <v-list-item-avatar>
-                            <v-img :src="(item.image.length>0)?item.image:require('@/assets/img/default_avatar.jpg')"></v-img>
+                            <v-img
+                              :src="
+                                item.image.length > 0
+                                  ? item.image
+                                  : require('@/assets/img/default_avatar.jpg')
+                              "
+                            ></v-img>
                           </v-list-item-avatar>
 
                           <v-list-item-content>
-                            <v-list-item-title class="google-font" v-html="item.name"></v-list-item-title>
-                            <v-list-item-subtitle class="google-font" v-html="item.email"></v-list-item-subtitle>
+                            <v-list-item-title
+                              class="google-font"
+                              v-html="item.name"
+                            ></v-list-item-title>
+                            <v-list-item-subtitle
+                              class="google-font"
+                              v-html="item.email"
+                            ></v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
                       </template>
                       <template v-slot:item.active="{ item }">
-                        <v-chip x-small v-if="item.active == true" color="success">Active</v-chip>
+                        <v-chip
+                          x-small
+                          v-if="item.active == true"
+                          color="success"
+                          >Active</v-chip
+                        >
                         <v-chip v-else x-small dark color="red">Inctive</v-chip>
                       </template>
                       <template v-slot:item.visible="{ item }">
-                        <v-chip x-small v-if="item.visible == true" color="success">Visible</v-chip>
-                        <v-chip v-else x-small dark color="red">Not Visible</v-chip>
+                        <v-chip
+                          x-small
+                          v-if="item.visible == true"
+                          color="success"
+                          >Visible</v-chip
+                        >
+                        <v-chip v-else x-small dark color="red"
+                          >Not Visible</v-chip
+                        >
                       </template>
                       <template v-slot:item.actions="{ item }">
-
                         <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn icon v-on="on" @click="gotoTeamDetails(item.id)">
+                            <v-btn
+                              icon
+                              v-on="on"
+                              @click="gotoTeamDetails(item.id)"
+                            >
                               <v-icon>mdi-eye</v-icon>
                             </v-btn>
                           </template>
-                          <span>{{item.name}} Details</span>
+                          <span>{{ item.name }} Details</span>
                         </v-tooltip>
-                        
                       </template>
                     </v-data-table>
                   </v-col>
                 </v-row>
-                
               </div>
               <!-- Table View -->
             </div>
@@ -245,14 +319,30 @@
             <div v-else>
               <v-row justify="center" align="center">
                 <v-col cols="12" md="12" class="pa-1">
-                  <v-container fluid class="" style="border:1px solid #e0e0e0;border-radius:5px;background:white">
+                  <v-container
+                    fluid
+                    class=""
+                    style="
+                      border: 1px solid #e0e0e0;
+                      border-radius: 5px;
+                      background: white;
+                    "
+                  >
                     <v-row justify="center" align="center" class="pa-3">
                       <v-col md="4" class="text-center">
-                        <img style="width:50%;text-align:center" :src="require('@/assets/img/svg/DataNotFound.svg')"/>
+                        <img
+                          style="width: 50%; text-align: center"
+                          :src="require('@/assets/img/svg/DataNotFound.svg')"
+                        />
                         <h1 class="google-font">Team Members Data Not Found</h1>
                         <p class="google-font">Kindly add Team member</p>
-                        <br>
-                        <AddTeam class="ml-2"  v-if="role=='Super Admin'" @showSuccess="showSnakeBar" @message="showMessageSnakeBar"  />
+                        <br />
+                        <AddTeam
+                          class="ml-2"
+                          v-if="role == 'Super Admin'"
+                          @showSuccess="showSnakeBar"
+                          @message="showMessageSnakeBar"
+                        />
                       </v-col>
                     </v-row>
                   </v-container>
@@ -260,7 +350,6 @@
               </v-row>
             </div>
             <!-- Not Data Found -->
-          
           </div>
         </v-container>
       </v-col>
@@ -269,26 +358,26 @@
 </template>
 
 <script>
-import TeamServices from '@/services/TeamServices'
-import {mapState} from 'vuex'
+import TeamServices from '@/services/TeamServices';
+import { mapState } from 'vuex';
 export default {
-  name: "TeamView",
+  name: 'TeamView',
   inject: ['theme'],
   components: {
-    Snakebar:()=>import('@/components/Common/Snakebar'),
-    AddTeam:()=>import('@/components/Team/AddTeam')
+    Snakebar: () => import('@/components/Common/Snakebar'),
+    AddTeam: () => import('@/components/Team/AddTeam'),
   },
-  computed:{
-    ...mapState(['role'])
+  computed: {
+    ...mapState(['role']),
   },
   data: () => ({
-    items: ['All', 'Active','Inactive'],
-    dataView:0,
-    isSearch:false,
-    search: "",
-    snakeBarMessage: "",
+    items: ['All', 'Active', 'Inactive'],
+    dataView: 0,
+    isSearch: false,
+    search: '',
+    snakeBarMessage: '',
     isSnakeBarVisible: false,
-    snakeBarColor: "green",
+    snakeBarColor: 'green',
     snakeBarTimeOut: 5000,
     isLoading: false,
     showDialog: false,
@@ -298,30 +387,29 @@ export default {
         text: 'Name',
         align: 'start',
         value: 'name',
-        width:'25%'
+        width: '25%',
       },
       { text: 'Role', value: 'role' },
       { text: 'Designation', value: 'designation' },
       { text: 'Status', value: 'active' },
       { text: 'Visible', value: 'visible' },
-      { text: 'Actions', value: 'actions', sortable: false, },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
   }),
   mounted() {
     if (this.$route.query.msg) {
-      this.showSnakeBar("Team Removed Sucessfully");
-    }else
-      this.showData();
+      this.showSnakeBar('Team Removed Sucessfully');
+    } else this.showData();
   },
   methods: {
     changeSnakebar(vale) {
       this.isSnakeBarVisible = vale;
     },
-    openCloseSearch(){
-      this.isSearch = !this.isSearch
-      this.search = "";
+    openCloseSearch() {
+      this.isSearch = !this.isSearch;
+      this.search = '';
     },
-    showMessageSnakeBar(text){
+    showMessageSnakeBar(text) {
       this.snakeBarMessage = text;
       this.isSnakeBarVisible = true;
     },
@@ -331,28 +419,30 @@ export default {
       this.showData();
     },
     gotoTeamDetails(id) {
-      this.$router.push("/team/" + id);
+      this.$router.push('/team/' + id);
     },
     showData() {
       this.teamData = [];
       this.isLoading = true;
-      TeamServices.getAllTeam().then(res=>{
-        this.teamData = res.data
-        this.isLoading = false
-      }).catch(e=>{
-        this.isLoading = false
-        console.log("Error getting documents", e)
-      })
-    }
-  }
+      TeamServices.getAllTeam()
+        .then((res) => {
+          this.teamData = res.data;
+          this.isLoading = false;
+        })
+        .catch((e) => {
+          this.isLoading = false;
+          console.log('Error getting documents', e);
+        });
+    },
+  },
 };
 </script>
 <style>
 .v-badge--dot .v-badge__badge {
-    border-radius: 6px;
-    height: 12px;
-    min-width: 0;
-    padding: 0;
-    width: 12px;
+  border-radius: 6px;
+  height: 12px;
+  min-width: 0;
+  padding: 0;
+  width: 12px;
 }
 </style>

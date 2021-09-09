@@ -1,7 +1,12 @@
 <template>
   <v-container fluid class="my-0 py-0">
     <v-row class="ma-0 pa-0" style="">
-      <v-col cols="3" md="3" class="ma-0 pa-0 pb-0" style="border:1px solid #e0e0e0;">
+      <v-col
+        cols="3"
+        md="3"
+        class="ma-0 pa-0 pb-0"
+        style="border: 1px solid #e0e0e0"
+      >
         <v-container
           id="scroll-target"
           style="max-height: 93vh"
@@ -74,22 +79,22 @@
 </template>
 
 <script>
-import UserService from "@/services/UsersServices";
-import firebase from "@/config/firebase";
-import { mapState } from "vuex";
+import UserService from '@/services/UsersServices';
+import firebase from '@/config/firebase';
+import { mapState } from 'vuex';
 export default {
-  name: "Desktop-Connect",
+  name: 'Desktop-Connect',
   components: {
-    Chat: () => import("./Chat"),
+    Chat: () => import('./Chat'),
   },
   data: () => ({
     users: [],
     isLoadingUsers: [],
-    content: "",
+    content: '',
     offsetTop: 0,
     showLoader: false,
   }),
-  computed: { ...mapState(["userDetails"]) },
+  computed: { ...mapState(['userDetails']) },
   mounted() {
     this.getUsers();
   },
@@ -114,7 +119,7 @@ export default {
     enterData() {
       if (this.content.length > 0) {
         firebase.firestore
-          .collection("connect")
+          .collection('connect')
           .add({
             message: this.content,
             name: this.userDetails.id,

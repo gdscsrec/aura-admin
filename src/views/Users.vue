@@ -1,5 +1,5 @@
 <template>
-  <v-container class="" style="max-width:1600px">
+  <v-container class="" style="max-width: 1600px">
     <Snakebar
       :message="snakeBarMessage"
       :isShow.sync="isSnakeBarVisible"
@@ -10,7 +10,7 @@
       <v-col>
         <v-toolbar
           class="elevation-0"
-          style="border:1px solid #e0e0e0;border-radius:5px;"
+          style="border: 1px solid #e0e0e0; border-radius: 5px"
         >
           <v-toolbar-title class="google-font mr-3"
             >User Management
@@ -114,7 +114,12 @@
                                       class="red"
                                       >Disabled</v-chip
                                     >
-                                    <v-chip label x-small dark v-else class="green"
+                                    <v-chip
+                                      label
+                                      x-small
+                                      dark
+                                      v-else
+                                      class="green"
                                       >Enabled</v-chip
                                     >
                                   </div>
@@ -224,7 +229,11 @@
 
                     <v-data-table
                       :mobile-breakpoint="0"
-                      style="border:1px solid #e0e0e0;border-radius:5px;background:white;"
+                      style="
+                        border: 1px solid #e0e0e0;
+                        border-radius: 5px;
+                        background: white;
+                      "
                       :search="search"
                       :loading="isLoading"
                       :headers="headers"
@@ -351,47 +360,47 @@
 </template>
 
 <script>
-import UsersServices from "@/services/UsersServices";
-import { mapState } from "vuex";
+import UsersServices from '@/services/UsersServices';
+import { mapState } from 'vuex';
 export default {
-  name: "TeamView",
-  inject: ["theme"],
+  name: 'TeamView',
+  inject: ['theme'],
   components: {
-    Snakebar: () => import("@/components/Common/Snakebar"),
-    AddUser: () => import("@/components/Users/addUser"),
-    DeleteUser: () => import("@/components/Users/DeleteUser"),
-    EditUser: () => import("@/components/Users/editUser"),
+    Snakebar: () => import('@/components/Common/Snakebar'),
+    AddUser: () => import('@/components/Users/addUser'),
+    DeleteUser: () => import('@/components/Users/DeleteUser'),
+    EditUser: () => import('@/components/Users/editUser'),
   },
   data: () => ({
     dataView: 0,
     isSearch: false,
-    search: "",
-    snakeBarMessage: "",
+    search: '',
+    snakeBarMessage: '',
     isSnakeBarVisible: false,
-    snakeBarColor: "green",
+    snakeBarColor: 'green',
     snakeBarTimeOut: 5000,
     isLoading: false,
     showDialog: false,
     usersData: [],
     headers: [
-      { text: "User Name", value: "name", width: "20%" },
+      { text: 'User Name', value: 'name', width: '20%' },
       // { text: 'Email', value: 'email' },
-      { text: "Role", value: "role" },
-      { text: "User Type", value: "userType" },
-      { text: "User Status", value: "disabled", sortable: true, },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: 'Role', value: 'role' },
+      { text: 'User Type', value: 'userType' },
+      { text: 'User Status', value: 'disabled', sortable: true },
+      { text: 'Actions', value: 'actions', sortable: false },
     ],
   }),
-  computed: { ...mapState(["role"]) },
+  computed: { ...mapState(['role']) },
   beforeMount() {
     if (!this.$route.meta.access[this.role]) {
-      alert("Not Auth");
-      this.$router.replace("/home");
+      alert('Not Auth');
+      this.$router.replace('/home');
     }
   },
   mounted() {
     if (this.$route.query.msg) {
-      this.showSnakeBar("User Removed Sucessfully");
+      this.showSnakeBar('User Removed Sucessfully');
     } else this.showData();
   },
   methods: {
@@ -400,7 +409,7 @@ export default {
     },
     openCloseSearch() {
       this.isSearch = !this.isSearch;
-      this.search = "";
+      this.search = '';
     },
     showFailedSnakeBar(text) {
       this.snakeBarMessage = text;
@@ -421,11 +430,11 @@ export default {
         })
         .catch((e) => {
           this.isLoading = false;
-          console.log("Error getting documents", e);
+          console.log('Error getting documents', e);
         });
     },
     gotoTeamDetails(id) {
-      this.$router.push("/team/" + id);
+      this.$router.push('/team/' + id);
     },
     disableUser(uid) {
       this.showDialog = true;

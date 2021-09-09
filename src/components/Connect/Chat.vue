@@ -23,12 +23,12 @@
         <p
           v-if="index == 0"
           class="my-0 mt-2"
-          style="text-transform: uppercase;font-size:80%;color:#eb6eb8"
+          style="text-transform: uppercase; font-size: 80%; color: #eb6eb8"
         >
           {{ message.name }}
         </p>
         <p
-          style="text-transform: uppercase;font-size:80%;color:#99B113"
+          style="text-transform: uppercase; font-size: 80%; color: #99b113"
           class="my-0 mt-2"
           v-if="index > 0 && messages[index - 1].name != message.name"
         >
@@ -47,17 +47,17 @@
 </template>
 
 <script>
-import firebase from "@/config/firebase";
-import { mapState } from "vuex";
+import firebase from '@/config/firebase';
+import { mapState } from 'vuex';
 export default {
-  name: "Chat-Connect",
+  name: 'Chat-Connect',
   data: () => ({
     messages: [],
-    name: "",
-    content: "",
+    name: '',
+    content: '',
     showLoader: false,
   }),
-  computed: { ...mapState(["userDetails"]) },
+  computed: { ...mapState(['userDetails']) },
   created() {
     this.getData();
   },
@@ -65,7 +65,7 @@ export default {
   methods: {
     getDateTime(date) {
       if (date.toString().length > 0) {
-        return new Date(date).toString().split("(")[0];
+        return new Date(date).toString().split('(')[0];
       } else {
         return date;
       }
@@ -73,11 +73,11 @@ export default {
     getData() {
       this.showLoader = true;
       firebase.firestore
-        .collection("connect")
-        .orderBy("timestamp")
+        .collection('connect')
+        .orderBy('timestamp')
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
-            if (change.type == "added") {
+            if (change.type == 'added') {
               let doc = change.doc;
               this.messages.push({
                 id: doc.id,
@@ -94,12 +94,12 @@ export default {
   filters: {
     dateFilter: (value) => {
       const date = new Date(value);
-      return date.toLocaleString(["en-US"], {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
+      return date.toLocaleString(['en-US'], {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
       });
     },
   },
